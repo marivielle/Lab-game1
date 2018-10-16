@@ -17,7 +17,13 @@ def remove_punct(text):
     >>> remove_punct(",go!So.?uTh")
     'goSouTh'
     """
-    pass # The pass statement does nothing. Replace it with the body of your function.
+    punctuation = "!?()-,.:;'"
+    new_text = ""
+    for letter in range(0, len(text)):
+        if text[letter] not in punctuation:
+            new_text = new_text + text[letter]
+            
+    return new_text
     
     
 def remove_spaces(text):
@@ -36,7 +42,27 @@ def remove_spaces(text):
     >>> remove_spaces("   ")
     ''
     """
-    pass
+    new_text = ""
+    letter_position_front = 0
+    letter_position_back = -1
+    
+    while True:
+        for char in range(0, len(text)):
+            if text[char] != " ":
+                letter_position_front = char
+                break
+            
+        for char in range(1, len(text)+1):
+            if text[len(text)-char] != " ":
+                letter_position_back = len(text)-char
+                break
+
+        
+        new_text = text[letter_position_front:letter_position_back+1]
+            
+        break
+
+    return new_text
 
 
 def normalise_input(user_input):
@@ -51,7 +77,11 @@ def normalise_input(user_input):
     >>> normalise_input("HELP!!!!!!!")
     'help'
     """
-    pass
+    new_user_input = remove_punct(user_input)
+    new_user_input = remove_spaces(new_user_input)
+    
+
+    return new_user_input.lower()
 
     
 def display_room(room):
@@ -73,6 +103,7 @@ def display_room(room):
 
     Note: <BLANKLINE> here means that doctest should expect a blank line.
     """
+    print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n")
     # pass # The pass statement does nothing. Replace it with the body of your function.
 
     
@@ -88,7 +119,9 @@ def exit_leads_to(exits, direction):
     >>> exit_leads_to(rooms["Tutor"]["exits"], "west")
     'Reception'
     """
-    pass
+    room = rooms[exits[direction]]["name"]
+
+    return room
     
 
 def print_menu_line(direction, leads_to):
@@ -104,7 +137,7 @@ def print_menu_line(direction, leads_to):
     >>> print_menu_line("south", "MJ and Simon's room")
     Go SOUTH to MJ and Simon's room.
     """
-    pass
+    print("Go "+ direction.upper()+ " to "+ leads_to + ".")
 
 
 def print_menu(exits):
@@ -123,12 +156,17 @@ def print_menu(exits):
     Where do you want to go?
     """
     print("You can:")
+
+    for route in exits:
+        print_menu_line(route, exit_leads_to(exits,route))
+    print("\n")
     
     # COMPLETE THIS PART:
     # Iterate over available exits:
     #     and for each exit print the appropriate menu line
 
     print("Where do you want to go?")
+    
 
 
 def is_valid_exit(exits, user_input):
@@ -147,7 +185,11 @@ def is_valid_exit(exits, user_input):
     >>> is_valid_exit(rooms["Parking"]["exits"], "east")
     True
     """
-    pass
+    if user_input in exits:
+        return True
+
+    else:
+        return False
 
 
 def menu(exits):
@@ -162,7 +204,14 @@ def menu(exits):
 
     # Repeat until the player enter a valid choice
     while True:
-        pass
+        print_menu(exits)
+        player_input = input("> ")
+        #normalised_input(player_input)
+        if is_valid_exit(exits,player_input) == True:
+            return player_input
+        else:
+            print("Not valid\n")
+        
         # COMPLETE THIS PART:
         
         # Display menu
@@ -189,7 +238,7 @@ def move(exits, direction):
     >>> move(rooms["Reception"]["exits"], "west") == rooms["Office"]
     False
     """
-    pass
+    return rooms[exits[direction]]
 
 
 # This is the entry point of our program
