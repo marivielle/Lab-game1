@@ -191,11 +191,11 @@ def is_valid_exit(exits, user_input):
     for direction in directions:
         if direction in user_input:
             if direction in exits:
-                return direction, True
+                return True
 
             else:
-                return "", False
-    return "", False
+                return False
+    return False
             
         
 
@@ -222,11 +222,14 @@ def menu(exits):
         
         player_input = normalise_input(player_input)
 
-        direction, valid_exit = is_valid_exit(exits,player_input)
+        directions = ["north", "south", "east", "west"]
         
         # Check if the input makes sense (is valid exit)
-        if valid_exit == True:
-            return direction
+        if is_valid_exit(exits,player_input) == True:
+            
+            for direction in directions:
+                if direction in player_input:
+                    return direction
         else:
             print("Not valid\n")
         
@@ -271,3 +274,4 @@ def main():
 # See https://docs.python.org/3.4/library/__main__.html for explanation
 if __name__ == "__main__":
     main()
+
