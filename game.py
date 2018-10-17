@@ -186,11 +186,18 @@ def is_valid_exit(exits, user_input):
     >>> is_valid_exit(rooms["Parking"]["exits"], "east")
     True
     """
-    if user_input in exits:
-        return True
+    directions = ["north", "south", "east", "west"]
 
-    else:
-        return False
+    for direction in directions:
+        if direction in user_input:
+            if direction in exits:
+                return direction, True
+
+            else:
+                return "", False
+    return "", False
+            
+        
 
 
 def menu(exits):
@@ -210,14 +217,16 @@ def menu(exits):
         
         # Read player's input
         player_input = input("> ")
-        
+
         # Normalise the input
         
         player_input = normalise_input(player_input)
+
+        direction, valid_exit = is_valid_exit(exits,player_input)
         
         # Check if the input makes sense (is valid exit)
-        if is_valid_exit(exits,player_input) == True:
-            return player_input
+        if valid_exit == True:
+            return direction
         else:
             print("Not valid\n")
         
