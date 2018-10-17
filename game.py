@@ -17,11 +17,13 @@ def remove_punct(text):
     >>> remove_punct(",go!So.?uTh")
     'goSouTh'
     """
-    punctuation = "!?()-,.:;'"
-    new_text = ""
-    for letter in range(0, len(text)):
-        if text[letter] not in punctuation:
-            new_text = new_text + text[letter]
+    punctuation = "!?()-,.:;'"                  #all the punctuation I want to remove
+    
+    new_text = ""                               #where the string without punctuation will be held
+    
+    for letter in range(0, len(text)):          #iterating each character in the text
+        if text[letter] not in punctuation:     #if current letter is not in the text stored in variable "punctuation"
+            new_text = new_text + text[letter]  #concatenate the character to the string new_text
             
     return new_text
     
@@ -42,23 +44,23 @@ def remove_spaces(text):
     >>> remove_spaces("   ")
     ''
     """
-    new_text = ""
-    letter_position_front = 0
-    letter_position_back = -1
+    new_text = ""                           #where the string without spaces will be held
+    letter_position_front = 0               #works as a front pointer
+    letter_position_back = -1               #works as a back pointer
     
     while True:
-        for char in range(0, len(text)):
-            if text[char] != " ":
-                letter_position_front = char
+        for char in range(0, len(text)):      #iterating through the characters (front to back)
+            if text[char] != " ":               #until the character isn't a space
+                letter_position_front = char    #front pointer is the position of that character
                 break
             
-        for char in range(1, len(text)+1):
-            if text[len(text)-char] != " ":
-                letter_position_back = len(text)-char
+        for char in range(1, len(text)+1):      #iterating through the characters (back to front)
+            if text[len(text)-char] != " ":     #until the character isn't a space
+                letter_position_back = len(text)-char  #back pointer is the position of that character
                 break
 
         
-        new_text = text[letter_position_front:letter_position_back+1]
+        new_text = text[letter_position_front:letter_position_back+1]  #slices the string so we lose the trailing spaces
             
         break
 
