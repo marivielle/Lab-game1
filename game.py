@@ -213,7 +213,7 @@ def menu(exits):
         
         # Normalise the input
         
-        player_input = normalised_input(player_input)
+        player_input = normalise_input(player_input)
         
         # Check if the input makes sense (is valid exit)
         if is_valid_exit(exits,player_input) == True:
