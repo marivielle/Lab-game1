@@ -79,8 +79,8 @@ def normalise_input(user_input):
     >>> normalise_input("HELP!!!!!!!")
     'help'
     """
-    new_user_input = remove_punct(user_input)
-    new_user_input = remove_spaces(new_user_input)
+    new_user_input = remove_punct(user_input) #remove punctuation
+    new_user_input = remove_spaces(new_user_input) #remove spaces
     
 
     return new_user_input.lower()
@@ -105,8 +105,7 @@ def display_room(room):
 
     Note: <BLANKLINE> here means that doctest should expect a blank line.
     """
-    print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n")
-    # pass # The pass statement does nothing. Replace it with the body of your function.
+    print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n") 
 
     
 def exit_leads_to(exits, direction):
@@ -159,7 +158,7 @@ def print_menu(exits):
     """
     print("You can:")
 
-    for route in exits:
+    for route in exits: #iterate through the exits
         print_menu_line(route, exit_leads_to(exits,route))
     print("\n")
     
@@ -206,27 +205,22 @@ def menu(exits):
 
     # Repeat until the player enter a valid choice
     while True:
+        # Display menu
         print_menu(exits)
+        
+        # Read player's input
         player_input = input("> ")
-        #normalised_input(player_input)
+        
+        # Normalise the input
+        
+        player_input = normalised_input(player_input)
+        
+        # Check if the input makes sense (is valid exit)
         if is_valid_exit(exits,player_input) == True:
             return player_input
         else:
             print("Not valid\n")
         
-        # COMPLETE THIS PART:
-        
-        # Display menu
-
-        # Read player's input
-
-        # Normalise the input
-
-        # Check if the input makes sense (is valid exit)
-            # If so, return the player's choice
-
-
-
 
 def move(exits, direction):
     """This function returns the room into which the player will move if, from a
